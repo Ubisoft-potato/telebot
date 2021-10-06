@@ -3,5 +3,10 @@
 # telebot/config.py: 1
 dynaconf == 3.1.7
 
-# telebot/main.py: 20
+# telebot/log.py: 3
+loguru == 0.5.3
+
+# telebot/handler/message.py: 1,2
+# telebot/handler/usage.py: 1,2
+# telebot/main.py: 23
 python_telegram_bot == 13.7
