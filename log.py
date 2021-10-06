@@ -22,5 +22,8 @@ class InterceptHandler(logging.Handler):
 
 
 def init_log_conf() -> None:
+    """
+    custom project logging with loguru
+    """
     logging.basicConfig(handlers=[InterceptHandler()],
                         level=settings["log_level"])
