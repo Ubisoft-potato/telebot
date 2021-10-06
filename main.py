@@ -12,45 +12,23 @@ Basic Echobot example, repeats messages.
 Press Ctrl-C on the command line or send a signal to the process to stop the
 bot.
 """
+import log
 
-import logging
+from config import settings
+# bot usage handler
+from handler.usage import *
+# bot message handler
+from handler.message import *
 
-from telegram import Update, ForceReply
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-
-# Enable logging
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-
-logger = logging.getLogger(__name__)
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 
-# Define a few command handlers. These usually take the two arguments update and
-# context.
-def start(update: Update, context: CallbackContext) -> None:
-    """Send a message when the command /start is issued."""
-    user = update.effective_user
-    update.message.reply_markdown_v2(
-        fr'Hi {user.mention_markdown_v2()}\!',
-        reply_markup=ForceReply(selective=True),
-    )
-
-
-def help_command(update: Update, context: CallbackContext) -> None:
-    """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
-
-
-def echo(update: Update, context: CallbackContext) -> None:
-    """Echo the user message."""
-    update.message.reply_text(update.message.text)
-
-
-def main() -> None:
-    """Start the bot."""
+def telegram_bot() -> None:
+    """
+    Start the bot.
+    """
     # Create the Updater and pass it your bot's token.
-    updater = Updater("1906580717:AAGT4_9QtuZEeRVsvLTBQMoksicAqPe1tiM")
+    updater = Updater(token=settings["token"])
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
@@ -72,4 +50,5 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    main()
+    log.init_log_conf()
+    telegram_bot()
