@@ -35,10 +35,9 @@ def telegram_bot() -> None:
 
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("help", help_command))
 
     # on non command i.e message - echo the message on Telegram
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+    dispatcher.add_handler(CommandHandler("jetbrains", get_jetbrains_license_servers))
 
     # Start the Bot
     updater.start_polling()
