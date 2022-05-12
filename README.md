@@ -1,10 +1,13 @@
 # Telegram Bot
 
-## Configuration
+## Usage
 
-* API Key Env Config
+* Docker Run Command
 
 ```shell
-export TELEBOT_TOKEN = "bot token" # Telegram Bot API token
-export TELEBOT_SHODAN_API_KEY = "shodan api key" # Shodan API key
+docker run -d --name=telebot  \
+       -e TELEBOT_TOKEN="Telegram Bot API token"\
+       -e TELEBOT_SHODAN_API_KEY="Shodan API key" \
+       -e ENV_FOR_DYNACONF="production" \ 
+       wdnmdcyka/telebot:latest
 ```
