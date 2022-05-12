@@ -24,5 +24,4 @@ class CnSpider(CrawlSpider):
         loader.add_css('abstract', '.t-content__chapo::text')
         loader.add_value('url', response.url)
         item = loader.load_item()
-        self.logger.info(item)
         yield item
