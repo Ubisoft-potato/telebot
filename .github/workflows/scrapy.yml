@@ -4,20 +4,11 @@ on:
   schedule:
     - cron: "0 10,23 * * *"
 
-  pull_request:
-    types:
-      - closed
-    branches: [ master ]
-    paths:
-      - 'spider/**'
-      - '.github/workflows/scrapy.yml'
-
   workflow_dispatch:
 
 
 jobs:
   rfi:
-    if: github.event.pull_request.merged == true
     runs-on: self-hosted
     steps:
       - name: Checkout Repository
@@ -26,5 +17,4 @@ jobs:
       - name: Run Rfi Spider
         run: |
           cd spider/rfi
-          pip install scrapy
           scrapy crawl cn
