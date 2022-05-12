@@ -2,7 +2,7 @@ name: Scrapy Deploy Workflow
 
 on:
   schedule:
-    - cron: "0 7,18 * * *"
+    - cron: "0 10,23 * * *"
 
   pull_request:
     types:
@@ -22,11 +22,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
-      - name: Setup Python environment
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.9'
 
       - name: Run Rfi Spider
         run: |
