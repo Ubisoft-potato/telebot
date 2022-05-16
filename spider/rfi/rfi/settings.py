@@ -80,10 +80,16 @@ DOWNLOADER_MIDDLEWARES = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 # }
 
+# redis settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'rfi.pipelines.RfiPipeline': 300,
+    'rfi.pipelines.RfiPipeline': 300,
+    'rfi.pipelines.RedisRfiPipeline': 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
