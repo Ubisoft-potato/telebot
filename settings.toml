@@ -8,6 +8,14 @@
 # DEBUG = 10
 # NOTSET = 0
 log_level = 10
+# redis conf
+redis.host = "localhost"
+redis.port = 6379
+redis.db = 0
 
 [production]
 log_level = 20
+# redis conf
+redis.host = ""
+redis.port = 6379
+redis.db = 0

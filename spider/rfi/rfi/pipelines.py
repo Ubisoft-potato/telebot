@@ -41,8 +41,24 @@ class RedisRfiPipeline:
         )
 
     def open_spider(self, spider):
-        self.redis = Redis(host=self.redis_host, port=self.redis_port, db=self.redis_db)
+        self.redis = Redis(host=self.redis_host,
+                           port=self.redis_port,
+                           db=self.redis_db,
+                           charset="utf-8",
+                           decode_responses=True)
         spider.logger.info(f'Connected to Redis on {self.redis_host}:{self.redis_port}, Ping: {self.redis.ping()}')
+        docs_key = f'rfi:docs:{self.date}'
+        docs = self.redis.lrange(docs_key, 0, -1)
+        if len(docs) > 0:
+            spider.logger.info(f'{len(docs)} RFI Infos Found in Redis, Deleting...')
+            pipeline = self.redis.pipeline(transaction=False)
+            for doc_id in docs:
+                doc_id = f'rfi:{doc_id}'
+                spider.logger.info(f'Deleting RFI Info: {doc_id}')
+                pipeline.delete(doc_id)
+            pipeline.delete(docs_key)
+            resp = pipeline.execute()
+            spider.logger.debug(f'RFI Infos Deleted From Redis: {resp}')
 
     def close_spider(self, spider):
         self.redis.expire(f'rfi:docs:{self.date}', 86400)
