@@ -1,4 +1,5 @@
 import logging
+import sys
 
 from loguru import logger
 from config import settings
@@ -27,3 +28,7 @@ def init_log_conf() -> None:
     """
     logging.basicConfig(handlers=[InterceptHandler()],
                         level=settings["log_level"])
+
+    # add set logger level
+    logger.remove()
+    logger.add(sys.stderr, level=settings["log_level"])
