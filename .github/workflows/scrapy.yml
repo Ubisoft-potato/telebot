@@ -1,4 +1,4 @@
-name: Scrapy Deploy Workflow
+name: Scrapy Deploy
 
 on:
   schedule:
