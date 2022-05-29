@@ -59,7 +59,7 @@ def telegram_bot() -> None:
 
     for uid in get_cron_users(redis):
         logger.info(f"Registering Daily Feed User: {uid}")
-        updater.job_queue.run_once(bot_job.rfi_daily_push, when=1, context=uid)
+        # updater.job_queue.run_once(bot_job.rfi_daily_push, when=1, context=uid)
         updater.job_queue.run_daily(bot_job.rfi_daily_push,
                                     time=datetime.time(hour=8, minute=0, tzinfo=pytz.timezone("Asia/Shanghai")),
                                     days=(0, 1, 2, 3, 4, 5, 6),
