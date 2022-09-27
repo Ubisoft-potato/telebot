@@ -24,12 +24,11 @@ class BotMessage:
         """
         rsp = self.shodanOperation.search(self.jetbrains_license_server)
         bot_message = '*JetBrains license servers*\n'
-        for result in rsp["matches"]:
-            hostnames = result["hostnames"]
+        for result in rsp.get("matches", []):
+            hostnames = result.get("hostnames", [])
             port = result["port"]
             if len(hostnames) > 0:
-                bot_message += f'**Host:** {helpers.escape_markdown(hostnames[0], version=2)}:{port}\n' \
-                               f'**Org:** _{helpers.escape_markdown(result["org"], version=2)}_\n\n'
+                bot_message += f'**Host:** {helpers.escape_markdown(hostnames[0], version=2)}:{port}\n'
 
         update.message.reply_markdown_v2(text=bot_message)
 
