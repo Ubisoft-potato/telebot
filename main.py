@@ -57,17 +57,17 @@ def telegram_bot() -> None:
     dispatcher.add_handler(CommandHandler("jetbrains", bot_msg.get_jetbrains_license_servers))
     dispatcher.add_handler(CallbackQueryHandler(bot_msg.daily_feed_callback))
 
-    for uid in get_cron_users(redis):
-        logger.info(f"Registering Daily Feed User: {uid}")
-        # updater.job_queue.run_once(bot_job.rfi_daily_push, when=1, context=uid)
-        updater.job_queue.run_daily(bot_job.rfi_daily_push,
-                                    time=datetime.time(hour=8, minute=0, tzinfo=pytz.timezone("Asia/Shanghai")),
-                                    days=(0, 1, 2, 3, 4, 5, 6),
-                                    context=uid)
-        updater.job_queue.run_daily(bot_job.rfi_daily_push,
-                                    time=datetime.time(hour=19, minute=0, tzinfo=pytz.timezone("Asia/Shanghai")),
-                                    days=(0, 1, 2, 3, 4, 5, 6),
-                                    context=uid)
+    # for uid in get_cron_users(redis):
+    #     logger.info(f"Registering Daily Feed User: {uid}")
+    #     # updater.job_queue.run_once(bot_job.rfi_daily_push, when=1, context=uid)
+    #     updater.job_queue.run_daily(bot_job.rfi_daily_push,
+    #                                 time=datetime.time(hour=8, minute=0, tzinfo=pytz.timezone("Asia/Shanghai")),
+    #                                 days=(0, 1, 2, 3, 4, 5, 6),
+    #                                 context=uid)
+    #     updater.job_queue.run_daily(bot_job.rfi_daily_push,
+    #                                 time=datetime.time(hour=19, minute=0, tzinfo=pytz.timezone("Asia/Shanghai")),
+    #                                 days=(0, 1, 2, 3, 4, 5, 6),
+    #                                 context=uid)
 
     # Start the Bot
     updater.start_polling()
